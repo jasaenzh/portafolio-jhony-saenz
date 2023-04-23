@@ -3,8 +3,11 @@ import React, { useState, useEffect } from "react";
 import { skills, experiencias, proyectos, skillsImages } from "../db";
 import Link from "next/link";
 import { Carousel, Image } from "react-bootstrap";
+import { v4 as uuidv4 } from "uuid";
 
 const Index = () => {
+  const uniqueId = uuidv4();
+
   const [loopNum, setLoopNum] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const toRotate = [
@@ -53,7 +56,7 @@ const Index = () => {
   return (
     <Layout>
       {/* Habilidades y Experciencias */}
-      <header className="row">
+      <header className="row h-100">
         <div className="col-md-12">
           <div className="card card-body bg-secondary text-light">
             <div className="row">
@@ -104,20 +107,18 @@ const Index = () => {
             <div className="card-body">
               <h1>Habilidades</h1>
               {/* Div de barra de progreso con las habilidades */}
-              {skills.map((skill, indiceSkill) => {
-                return (
-                  <div className="py-3" key={indiceSkill}>
-                    <h4>{skill.habilidad}</h4>
-                    <div className="progress">
-                      <div
-                        className="progress-bar"
-                        role="progressbar"
-                        style={{ width: `${skill.porcentaje}%` }}
-                      ></div>
-                    </div>
+              {skills.map((skill, index) => (
+                <div key={index + uniqueId} className="py-3">
+                  <h4>{skill.habilidad}</h4>
+                  <div className="progress">
+                    <div
+                      className="progress-bar"
+                      role="progressbar"
+                      style={{ width: `${skill.porcentaje}%` }}
+                    ></div>
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -192,23 +193,22 @@ const Index = () => {
                         <div className="row mb-3">
                           <p>Habilidades</p>
                           <div className="col-md-8">
-                            {proyectos.map(
-                              (proyecto, indiceProyectoHabilidades) => {
-                                const habilidades = proyecto.skills.join(", ");
-                                return (
-                                  <span
-                                    className="text-justify small"
-                                    key={indiceProyectoHabilidades}
-                                  >
-                                    {habilidades}
-                                    {indiceProyectoHabilidades ===
-                                    proyectos.length - 1
-                                      ? "."
-                                      : ", "}
-                                  </span>
-                                );
-                              }
-                            )}
+                            {proyecto.skills
+                              .filter(
+                                (skill, index, self) =>
+                                  self.indexOf(skill) === index
+                              )
+                              .map((habilidad, indice) => (
+                                <span
+                                  className="text-justify small"
+                                  key={indice}
+                                >
+                                  {habilidad}
+                                  {indice === proyecto.skills.length - 1
+                                    ? "."
+                                    : ", "}
+                                </span>
+                              ))}
                           </div>
                           <div className="col-md-4">
                             <Carousel
