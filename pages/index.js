@@ -1,9 +1,7 @@
 import Layout from "../components/Layout";
 import React, { useState, useEffect } from "react";
-import { skills, experiencias, proyectos } from "../db";
+import { skills, experiencias, proyectos, skillsImages } from "../db";
 import Link from "next/link";
-// import Image from "next/image";
-
 import { Carousel, Image } from "react-bootstrap";
 
 const Index = () => {
@@ -27,7 +25,7 @@ const Index = () => {
       clearInterval(ticker);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [text]);
+  }, [text, delta]);
 
   const tick = () => {
     let i = loopNum % toRotate.length;
@@ -106,9 +104,9 @@ const Index = () => {
             <div className="card-body">
               <h1>Habilidades</h1>
               {/* Div de barra de progreso con las habilidades */}
-              {skills.map((skill, indice) => {
+              {skills.map((skill, indiceSkill) => {
                 return (
-                  <div className="py-3" key={indice}>
+                  <div className="py-3" key={indiceSkill}>
                     <h4>{skill.habilidad}</h4>
                     <div className="progress">
                       <div
@@ -128,23 +126,27 @@ const Index = () => {
             <div className="card-body">
               <h1>Experiencias</h1>
               <ul>
-                {experiencias.slice(0, 3).map((experiencia, indice) => {
-                  return (
-                    <li className="list-unstyled" key={indice}>
-                      <h4>{experiencia.cargo}</h4>
-                      <p className="text-justify small">
-                        {experiencia.nombre_de_la_empresa}
-                      </p>
-                      <p className="text-justify small">
-                        {experiencia.fecha_inicio} -{" "}
-                        {experiencia.fecha_fin ? experiencia.fecha_fin : "Act"}
-                      </p>
-                      <p className="text-justify small">
-                        {experiencia.descripcion}
-                      </p>
-                    </li>
-                  );
-                })}
+                {experiencias
+                  .slice(0, 3)
+                  .map((experiencia, indiceExperiencia) => {
+                    return (
+                      <li className="list-unstyled" key={indiceExperiencia}>
+                        <h4>{experiencia.cargo}</h4>
+                        <p className="text-justify small">
+                          {experiencia.nombre_de_la_empresa}
+                        </p>
+                        <p className="text-justify small">
+                          {experiencia.fecha_inicio} -{" "}
+                          {experiencia.fecha_fin
+                            ? experiencia.fecha_fin
+                            : "Act"}
+                        </p>
+                        <p className="text-justify small">
+                          {experiencia.descripcion}
+                        </p>
+                      </li>
+                    );
+                  })}
               </ul>
               <Link href="/experiencias">
                 <button className="btn btn-light">Mas</button>
@@ -163,39 +165,98 @@ const Index = () => {
                 <h1 className="text-center text-light"> Portafolio</h1>
               </div>
 
-              <div className="col-md-4">
-                <div className="card">
-                  <Carousel>
-                    {proyectos.map((proyecto) =>
-                      proyecto.imagenes.map((imagen, index) => {
-                        return (
-                          <Carousel.Item key={index}>
-                            <div
-                              className="d-flex align-items-center justify-content-center"
-                              style={{ height: "200px" }}
-                            >
-                              <Image
-                                src={imagen.src}
-                                alt={imagen.alt}
-                                className="align-self-center m-1"
-                                style={{ height: "200px" }}
-                              />
-                            </div>
-                          </Carousel.Item>
-                        );
-                      })
-                    )}
-                  </Carousel>
+              {proyectos.map((proyecto, indiceProyectos) => {
+                return (
+                  <div className="col-md-4" key={indiceProyectos}>
+                    <div className="card">
+                      <Carousel>
+                        {proyecto.imagenes.map((imagen, indiceSubProyecto) => {
+                          return (
+                            <Carousel.Item key={indiceSubProyecto}>
+                              <div className="d-flex align-items-center justify-content-center">
+                                <Image
+                                  src={imagen.src}
+                                  alt={imagen.alt}
+                                  className="align-self-center m-1"
+                                  style={{ height: "200px" }}
+                                />
+                              </div>
+                            </Carousel.Item>
+                          );
+                        })}
+                      </Carousel>
 
-                  <div className="card-body">
-                    <h3>Titulo</h3>
-                    <p>Descripcion</p>
-                    <Link href="/experiencias">
-                      <button className="btn btn-light">Mas detalles</button>
-                    </Link>
+                      <div className="card-body">
+                        <h3>{proyecto.nombre_proyecto}</h3>
+
+                        <div className="row mb-3">
+                          <p>Habilidades</p>
+                          <div className="col-md-8">
+                            {proyectos.map(
+                              (proyecto, indiceProyectoHabilidades) => {
+                                const habilidades = proyecto.skills.join(", ");
+                                return (
+                                  <span
+                                    className="text-justify small"
+                                    key={indiceProyectoHabilidades}
+                                  >
+                                    {habilidades}
+                                    {indiceProyectoHabilidades ===
+                                    proyectos.length - 1
+                                      ? "."
+                                      : ", "}
+                                  </span>
+                                );
+                              }
+                            )}
+                          </div>
+                          <div className="col-md-4">
+                            <Carousel
+                              interval={2000}
+                              draggable
+                              slidestoshow={2}
+                              indicators={false}
+                              controls={false}
+                            >
+                              {proyecto.skills.map((skill) => {
+                                const imagenesFiltradas = skillsImages.filter(
+                                  (imagenFiltrada) =>
+                                    skill.includes(imagenFiltrada.titulo)
+                                );
+                                return (
+                                  <Carousel.Item>
+                                    {imagenesFiltradas.map(
+                                      (imagen, indiceImagenesFiltradas) => {
+                                        return (
+                                          <div className="d-flex align-items-center justify-content-center">
+                                            <Image
+                                              key={indiceImagenesFiltradas}
+                                              className=" img-fluid"
+                                              src={imagen.src}
+                                              alt={imagen.alt}
+                                              style={{ height: "50px" }}
+                                            />
+                                          </div>
+                                        );
+                                      }
+                                    )}
+                                  </Carousel.Item>
+                                );
+                              })}
+                            </Carousel>
+                          </div>
+                        </div>
+
+                        <Link href="/experiencias">
+                          <button className="btn btn-light">
+                            Mas detalles
+                          </button>
+                        </Link>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
+                );
+              })}
             </div>
           </div>
         </div>
