@@ -7,9 +7,9 @@ const Portafolio = () => {
   return (
     <>
       <div className="row">
-        <div className="col-md-12">
-          <div className="card card-body bg-dark">
-            <div className="row">
+        <div className="col-md-12 ">
+          <div className="card card-body bg-dark rounded-3">
+            <div className="row ">
               <div className="col-md-12">
                 <h1 className="text-center text-light"> Portafolio</h1>
               </div>
@@ -17,7 +17,7 @@ const Portafolio = () => {
               {proyectos.map((proyecto, indiceProyectos) => {
                 return (
                   <div className="col-md-4" key={indiceProyectos}>
-                    <div className="card">
+                    <div className="card mb-3">
                       <Carousel>
                         {proyecto.imagenes.map((imagen, indiceSubProyecto) => {
                           return (

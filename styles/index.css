@@ -1,0 +1,59 @@
+#nprogress .bar {
+  background: #ff4567 !important;
+}
+
+#nprogress .spinner-icon{
+  border-top-color: #ffbb00;
+  border-left-color: #9c7815;
+}
+
+.header-css{
+  background-color: #333;
+  color: #fff;
+}
+
+.card-css{
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.skill-level{
+  height: 15px;
+  background-color: #eee;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-left: 20px;
+}
+
+.skill-percent{
+  background-color: #333;
+  height: 100%;
+}
+
+.skill-percent-number{
+  margin-left: 20px;
+  font-size: 16px;
+}
+
+.social-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f2f2f2;
+  box-shadow: 0px 0px 15px #00000027;
+  padding: 15px 10px;
+  border-radius: 5em;
+}
+
+.social-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 0 10px;
+  background-color: #fff;
+  box-shadow: 0px 0px 4px #00000027;
+  transition: 0.3s;
+}

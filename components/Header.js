@@ -51,7 +51,7 @@ const Header = () => {
     <>
       <header className="row h-100">
         <div className="col-md-12">
-          <div className="card card-body bg-secondary text-light">
+          <div className="card card-body bg-secondary text-light rounded-3">
             <div className="row">
               <div className="col-md-4" style={{ height: "300px" }}>
                 <div
@@ -84,9 +84,14 @@ const Header = () => {
                   ser un miembro valioso y activo.
                 </p>
 
-                <Link href="/correo">
-                  <button className="btn btn-light">Contactame</button>
-                </Link>
+                <div className="col-md-12">
+                  <div className="col-md-4">
+                    <Link href="/correo">
+                      <button className="btn btn-light">Contactame</button>
+                    </Link>
+                  </div>
+                  <div className="col-md-8"></div>
+                </div>
               </div>
             </div>
           </div>

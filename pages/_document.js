@@ -17,6 +17,10 @@ export default function Document() {
             min-height: calc(100vh - 110px); /* 128px = height of the header + footer */
           }
         `}</style>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.css"
+        />
       </Head>
       <body>
         <Main />

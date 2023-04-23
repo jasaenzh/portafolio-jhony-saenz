@@ -7,30 +7,41 @@ const SkillsAndExperience = () => {
   return (
     <>
       <div className="row py-2">
-        <div className="col-md-4 h-100">
-          <div className="card bg-light h-100">
+        <div className="col-md-4 mb-3">
+          <div className="card bg-light h-100 card-css rounded-2">
+            <div className="card-header header-css texl-lg text-center">
+              Habilidades
+            </div>
             <div className="card-body">
-              <h2>Habilidades</h2>
               {/* Div de barra de progreso con las habilidades */}
               {skills.map((skill, index) => (
                 <div key={index} className="py-3">
                   <h4>{skill.habilidad}</h4>
-                  <div className="progress">
+                  <div className="progress skill-level ">
                     <div
-                      className="progress-bar"
+                      className="progress-bar skill-percent"
                       role="progressbar"
                       style={{ width: `${skill.porcentaje}%` }}
-                    ></div>
+                      aria-valuenow={skill.porcentaje}
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    >
+                      <span className="progress-bar-label text-lg skill-percent-number">
+                        {skill.porcentaje}%
+                      </span>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
         </div>
-        <div className="col-md-8 h-100">
-          <div className="card bg-light h-100">
+        <div className="col-md-8 h-100 mb-3">
+          <div className="card bg-light h-100 card-css rounded-2">
+            <div className="card-header header-css texl-lg text-center">
+              Experiencias
+            </div>
             <div className="card-body">
-              <h2>Experiencias</h2>
               <ul>
                 {experiencias
                   .slice(0, 3)
