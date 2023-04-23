@@ -239,14 +239,14 @@ export const proyectos = [
       "SPA para obtener detalle de los video juegos. Te permite Filtrar por Base de Datos de la API o Base de Datos creada, filtrar por Género, Ordenar A - Z (viceversa) y Por Clasificación. Tiene un botón para crear nuestro propio video juego a través de un formulario.",
     skills: [
       "React",
+      "Javascript",
       "Redux",
       "Node js",
       "Express",
-      "CSS",
-      "HTML",
       "Postgresql",
+      "HTML",
       "Sequelize",
-      "Javascript",
+      "CSS",
     ],
     imagenes: [
       {
